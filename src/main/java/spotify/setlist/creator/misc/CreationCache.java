@@ -104,14 +104,14 @@ public class CreationCache {
       // Setlist name has been found again, check if the playlist already exists
       for (String playlistId : playlistIdsForSetlistName) {
         Playlist playlist = playlistService.getPlaylist(playlistId);
-        List<PlaylistTrack> playlistTracks = Arrays.asList(playlist.getTracks().getItems());
+        List<PlaylistTrack> playlistTracks = Arrays.asList(playlist.getItems().getItems());
         if (setlistTracks.size() == playlistTracks.size()) {
           List<String> currentSetlistTrackIds = setlistTracks.stream()
             .map(TrackSearchResult::getSearchResult)
             .map(Track::getId)
             .collect(Collectors.toList());
           List<String> existingPlaylistTrackIds = playlistTracks.stream()
-            .map(PlaylistTrack::getTrack)
+            .map(PlaylistTrack::getItem)
             .map(IPlaylistItem::getId)
             .collect(Collectors.toList());
           if (currentSetlistTrackIds.equals(existingPlaylistTrackIds)) {
